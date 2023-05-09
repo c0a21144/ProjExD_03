@@ -143,6 +143,17 @@ class Beam:
         self._rct.move_ip(self._vx, self._vy)
         screen.blit(self._img, self._rct)
 
+class explosion:
+    def __init__(self, bomb:Bomb):
+        self._img = pg.transform.rotozoom(pg.image.load(f"ex03/fig/explosion.png"), 0, 2.0)  # 画像surface
+        self._rct = self._img.get_rect()  # 画像surfaceに対応したrect
+        self._rct.centery = bomb._rct.centery
+        pg.display.update()
+        time.sleep(1)
+
+    def update(self, screen: pg.Surface):
+        screen.blit(self._img, self._rct)
+
 
 def main():
     pg.display.set_caption("たたかえ！こうかとん")
@@ -152,6 +163,7 @@ def main():
 
     bird = Bird(3, (900, 400))
     bombs = [Bomb() for _ in range(NUM_OF_BOMBS)]
+    explosions = [Bomb() for _ in range(NUM_OF_BOMBS)]
     beam = None
 
     tmr = 0
